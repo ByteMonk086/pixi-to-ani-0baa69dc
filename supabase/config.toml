@@ -1,0 +1,4 @@
+project_id = "brixqzblshvtatcqizqc"
+
+[functions.anime-convert]
+verify_jwt = false
