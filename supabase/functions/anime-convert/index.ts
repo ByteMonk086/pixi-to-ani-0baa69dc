@@ -24,7 +24,7 @@ serve(async (req) => {
       throw new Error('LOVABLE_API_KEY is not configured');
     }
 
-    // Call Lovable AI to convert image to anime style
+    // Call Lovable AI to convert image to anime style using the image generation model
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -32,22 +32,13 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.5-flash',
+        model: 'google/gemini-2.5-flash-image',
         messages: [
           {
             role: 'user',
-            content: [
-              {
-                type: 'text',
-                text: 'Transform this image into anime/manga art style. Make it look like professional anime artwork with: vibrant colors, clean lines, expressive features, dramatic lighting, and authentic anime aesthetic. Keep the composition and subject recognizable but fully stylized as anime.'
-              },
-              {
-                type: 'image_url',
-                image_url: {
-                  url: imageUrl
-                }
-              }
-            ]
+            content: `Transform this image into anime/manga art style. Make it look like professional anime artwork with: vibrant colors, clean lines, expressive features, dramatic lighting, and authentic anime aesthetic. Keep the composition and subject recognizable but fully stylized as anime.
+
+Image: ${imageUrl}`
           }
         ],
         modalities: ['image', 'text']
